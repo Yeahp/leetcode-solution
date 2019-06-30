@@ -1,11 +1,11 @@
 package data.structure;
 
-public class ListNode {
+public class ListNode<E> {
 
-    public double value;
-    public ListNode next;
+    public E value;
+    public ListNode<E> next;
 
-    public ListNode(double value) {
+    public ListNode(E value) {
         this.value = value;
     }
 

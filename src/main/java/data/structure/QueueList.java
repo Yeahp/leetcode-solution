@@ -1,4 +1,4 @@
-package data.structure.support;
+package data.structure;
 
 /**
  * 使用java.util.Queue接口,其底层关联到一个LinkedList（双端队列）实例.

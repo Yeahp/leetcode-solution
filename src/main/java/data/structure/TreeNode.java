@@ -1,4 +1,4 @@
-package data.structure.support;
+package data.structure;
 
 public class TreeNode {
 

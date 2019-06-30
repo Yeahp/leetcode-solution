@@ -1,20 +1,17 @@
-package data.structure.support;
+package data.structure;
 
-/*
- * 入队：rear=(rear+1)%maxSize，data[rear]=e
- * 出队：front = (front+1)%maxSize; E value =(E)data[front]; data[front] = null;
- * 得到对首元素：(E)data[front+1];
- * 判断对空：rear==front
- * 对长：rear-front
- */
 import java.util.Arrays;
 
+/*
+ * implemented based on array
+ */
 public class LoopQueue<E> {
+
     public Object[] data = null;
-    private int maxSize; // 队列容量
-    private int rear;// 队列尾，允许插入
-    private int front;// 队列头，允许删除
-    private int size=0; //队列当前长度
+    private int maxSize; // the maximum size
+    private int rear; // tail of queue, allowing inserting
+    private int front; // head of queue, allowing deleting
+    private int size = 0; // the current size
 
     public LoopQueue() {
         this(10);
@@ -26,55 +23,55 @@ public class LoopQueue<E> {
             data = new Object[initialSize];
             front = rear = 0;
         } else {
-            throw new RuntimeException("初始化大小不能小于0：" + initialSize);
+            throw new RuntimeException("Initial size mustn't less than 0: " + initialSize);
         }
     }
 
-    // 判空
+    // judge whether the queue is empty
     public boolean empty() {
         return size == 0;
     }
 
-    // 插入
+    // insert
     public boolean add(E e) {
         if (size == maxSize) {
-            throw new RuntimeException("队列已满，无法插入新的元素！");
+            throw new RuntimeException("The queue is full, no element can be inserted!");
         } else {
             data[rear] = e;
             rear = (rear + 1)%maxSize;
-            size ++;
+            size++;
             return true;
         }
     }
 
-    // 返回队首元素，但不删除
+    // display the head element without deletion
     public E peek() {
         if (empty()) {
-            throw new RuntimeException("空队列异常！");
+            throw new RuntimeException("The queue is empty");
         } else {
-            return (E) data[front];
+            return (E)data[front];
         }
     }
 
     // 出队
-    public E poll() {
+    public E pull() {
         if (empty()) {
-            throw new RuntimeException("空队列异常！");
+            throw new RuntimeException("The queue is empty!");
         } else {
-            E value = (E) data[front]; // 保留队列的front端的元素的值
-            data[front] = null; // 释放队列的front端的元素
-            front = (front+1)%maxSize;  //队首指针加1
+            E value = (E)data[front];
+            data[front] = null;
+            front = (front + 1)%maxSize;
             size--;
             return value;
         }
     }
 
-    // 队列长度
+    // the current size
     public int length() {
         return size;
     }
 
-    //清空循环队列
+    // clear queue
     public void clear(){
         Arrays.fill(data, null);
         size = 0;
@@ -93,7 +90,7 @@ public class LoopQueue<E> {
         System.out.println();
         int size=queue.length();
         for (int i = 0; i < size; i++) {
-            System.out.print(queue.poll()+" ");
+            System.out.print(queue.pull()+" ");
         }
     }
 }

@@ -1,7 +1,7 @@
 package solution;
 
-import data.structure.support.ListNode;
-import data.structure.support.TreeNode;
+import data.structure.ListNode;
+import data.structure.TreeNode;
 
 import java.util.HashMap;
 import java.util.List;

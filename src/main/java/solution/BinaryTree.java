@@ -2,10 +2,7 @@ package solution;
 
 import data.structure.TreeNode;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class BinaryTree {
 
@@ -169,7 +166,7 @@ public class BinaryTree {
         return found;
     }
 
-    // 12: 二叉树的前序遍历
+    // Q12: 二叉树的前序遍历
     // 迭代求解
     public ArrayList<Integer> preOrder(TreeNode root){
         Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -206,7 +203,7 @@ public class BinaryTree {
         preOrder2(root.right,result);
     }
 
-    // 13: 二叉树的中序遍历
+    // Q13: 二叉树的中序遍历
     ArrayList<Integer> inOrder(TreeNode root){
         ArrayList<Integer> list = new ArrayList<Integer>();
         Stack<TreeNode> stack = new Stack<TreeNode>();
@@ -224,7 +221,7 @@ public class BinaryTree {
         return list;
     }
 
-    // 14: 二叉树的后序遍历
+    // Q14: 二叉树的后序遍历
     ArrayList<Integer> postOrder(TreeNode root){
         ArrayList<Integer> list = new ArrayList<Integer>();
         if(root == null){
@@ -236,7 +233,7 @@ public class BinaryTree {
         return list;
     }
 
-    // 15: 前序遍历和后序遍历构造二叉树
+    // Q15: 前序遍历和后序遍历构造二叉树
     TreeNode buildTreeNode(int[] preorder,int[] inorder){
         if(preorder.length!=inorder.length){
             return null;
@@ -263,7 +260,7 @@ public class BinaryTree {
         return -1;
     }
 
-    // 16: 在二叉树中插入节点
+    // Q16: 在二叉树中插入节点
     TreeNode insertNode(TreeNode root,TreeNode node){
         if(root == node){
             return node;
@@ -289,7 +286,7 @@ public class BinaryTree {
         return root;
     }
 
-    // 17: 输入一个二叉树和一个整数，打印出二叉树中节点值的和等于输入整数所有的路径
+    // Q17: 输入一个二叉树和一个整数，打印出二叉树中节点值的和等于输入整数所有的路径
     void findPath(TreeNode root,int i){
         if(root == null){
             return;
@@ -317,7 +314,7 @@ public class BinaryTree {
         stack.pop();
     }
 
-    // 18: 二叉树的搜索区间
+    // Q18: 二叉树的搜索区间
     // 给定两个值 k1 和 k2（k1 < k2）和一个二叉查找树的根节点。找到树中所有值在 k1 到 k2 范围内的节点。即打印所有x (k1 <= x <= k2) 其中 x 是二叉查找树的中的节点值。返回所有升序的节点值。
     ArrayList<Integer> result;
     ArrayList<Integer> searchRange(TreeNode root,int k1,int k2){
@@ -340,7 +337,7 @@ public class BinaryTree {
         }
     }
 
-    // 19: 二叉树的层次遍历
+    // Q19: 二叉树的层次遍历
     ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
         ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
         if(root == null){
@@ -366,7 +363,7 @@ public class BinaryTree {
         return result;
     }
 
-    //20: 二叉树内两个节点的最长距离
+    //Q20: 二叉树内两个节点的最长距离
     //二叉树中两个节点的最长距离可能有三种情况：
     //1.左子树的最大深度+右子树的最大深度为二叉树的最长距离
     //2.左子树中的最长距离即为二叉树的最长距离
@@ -398,8 +395,8 @@ public class BinaryTree {
         return result;
     }
 
-    // 21: 不同的二叉树
-    //给出 n，问由 1…n 为节点组成的不同的二叉查找树有多少种？
+    // Q21: 不同的二叉树
+    // 给出 n，问由 1…n 为节点组成的不同的二叉查找树有多少种？
     int numTrees(int n ){
         int[] counts = new int[n+2];
         counts[0] = 1;
@@ -412,12 +409,12 @@ public class BinaryTree {
         return counts[n];
     }
 
-    // 22: 判断二叉树是否是合法的二叉查找树(BST)
-    //一棵BST定义为：
-    //节点的左子树中的值要严格小于该节点的值。
-    //节点的右子树中的值要严格大于该节点的值。
-    //左右子树也必须是二叉查找树。
-    //一个节点的树也是二叉查找树。
+    // Q22: 判断二叉树是否是合法的二叉查找树(BST)
+    // 一棵 BST 定义为：
+    // 节点的左子树中的值要严格小于该节点的值。
+    // 节点的右子树中的值要严格大于该节点的值。
+    // 左右子树也必须是二叉查找树。
+    // 一个节点的树也是二叉查找树。
     public int lastVal = Integer.MAX_VALUE;
     public boolean firstNode = true;
     public boolean isValidBST(TreeNode root) {
@@ -437,5 +434,25 @@ public class BinaryTree {
             return false;
         }
         return true;
+    }
+
+    // Q23: 层级打印二叉树
+    public List<Integer> levelOrderTraversal(TreeNode<Integer> root) {
+        int maxDepth = maxDepth(root);
+        List<Integer> tree = new ArrayList<Integer>();
+        for (int level = 1; level < maxDepth + 1; level++) {
+            traversalKLevel(root, tree, level);
+        }
+        return tree;
+    }
+    private void traversalKLevel(TreeNode<Integer> treeNode, List<Integer> tree, int level) {
+        if (treeNode == null || level < 1) {
+
+        } else if (level == 1) {
+            tree.add(treeNode.value);
+        } else {
+            traversalKLevel(treeNode.left, tree, level - 1);
+            traversalKLevel(treeNode.right, tree, level - 1);
+        }
     }
 }

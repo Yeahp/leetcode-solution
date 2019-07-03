@@ -8,5 +8,12 @@
     <artifactId>leetcode-solution</artifactId>
     <version>1.0.0</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.nd4j</groupId>
+            <artifactId>nd4j-native-platform</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+    </dependencies>
 
 </project>

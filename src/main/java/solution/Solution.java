@@ -3,6 +3,7 @@ package solution;
 import data.structure.ListNode;
 import data.structure.TreeNode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +75,35 @@ public class Solution {
     }
 
     //
+    public int solution_5(List<Integer> seat) {
+        int tt = seat.size();
+        List<Integer> order = new ArrayList<Integer>();
+        for (int i = 0; i < tt; i++) {
+            if (seat.get(i) == 1) order.add(i);
+        }
+        int minus = order.get(0) > tt -order.get(0) - 1? order.get(0) : tt -order.get(0) - 1;
+        for (int j = 1; j < order.size(); j++) {
+            int tmp = order.get(j) - order.get(j - 1) - 2;
+            if (tmp > minus) minus = tmp;
+        }
+        return minus;
+    }
+
+    public int solution_6(int[] seat) {
+        int max = 0;
+        int minus = 0;
+        int cnt = 0;
+        for (int i = 0; i < seat.length; i++) {
+            cnt++;
+            int _minus = i - max;
+            if (_minus > minus) minus = _minus;
+            if (seat[i] == 1) {
+                max = i;
+            }
+        }
+        if (cnt == 1 || seat[0] == 0) return minus;
+        return minus - 2;
+    }
 
     public static void main(String[] args) {
         Solution solution = new Solution();
@@ -81,15 +111,21 @@ public class Solution {
 //        String input = "asddfdsd";
 //        System.out.println(solution.solution_1(input));
 //
-//        List<Float> flist = new ArrayList<Float>(){
-//            {
-//                add(2.0f);
-//                add(3.0f);
-//                add(0.0f);
-//                add(3.0f);
-//            }
-//        };
-//        System.out.println(solution.solution_2(flist));
+        List<Integer> flist = new ArrayList<Integer>(){
+            {
+                add(0);
+                add(0);
+                add(0);
+                add(0);
+                add(1);
+                add(0);
+                add(1);
+                add(0);
+                add(0);
+            }
+        };
+        int[] fl = new int[]{0,0,0,0,1,0,1,0,0};
+        System.out.println(solution.solution_6(fl));
     }
 
 }

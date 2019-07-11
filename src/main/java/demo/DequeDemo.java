@@ -1,14 +1,16 @@
-package solution;
+package demo;
 
-import java.util.*;
-//import java.util.Deque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
 
+public class DequeDemo {
 
-public class MaxValueOfSlideWindow {
+    // LinkedList: 大小可变的链表双端队列，允许元素为插入null
+    // ArrayDeque 大下可变的数组双端队列，不允许插入null
+    // ConcurrentLinkedDeque 大小可变且线程安全的链表双端队列，非阻塞，不允许插入null
+    // LinkedBlockingDeque 为线程安全的双端队列，在队列为空的情况下，获取操作将会阻塞，直到有元素添加
 
-    // 给定一个数组 arr，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧
-    // 你只可以看到在滑动窗口 k 内的数字。滑动窗口每次只向右移动一位
-    // 返回滑动窗口最大值。
     private int[] maxSlidingWindow(int[] nums, int k) {
         if (nums == null || nums.length < k || k == 0) return new int[0];
         int[] res = new int[nums.length - k + 1];
@@ -31,6 +33,15 @@ public class MaxValueOfSlideWindow {
             }
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+
+        int[] arr = new int[]{1,2,3,4,5,6,7,8,9,8,7,6,5,4,3,2,1};
+        DequeDemo dequeDemo = new DequeDemo();
+        int[] res = dequeDemo.maxSlidingWindow(arr, 3);
+        System.out.println(Arrays.toString(res));
+
     }
 
 }

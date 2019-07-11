@@ -9,4 +9,9 @@ public class ListNode<E> {
         this.value = value;
     }
 
+    public ListNode(E value, ListNode<E> next) {
+        this.value = value;
+        this.next = next;
+    }
+
 }

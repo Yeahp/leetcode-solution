@@ -10,8 +10,24 @@ public class ThreeNumSum {
         if (arr.length < 3) return 0;
         Arrays.sort(arr);
         if ((arr[0] < 0 && arr[arr.length - 1] < 0) || (arr[0] > 0 && arr[arr.length - 1] > 0)) return 0;
-        for (int i = 0; i < arr.length - 2; i++) {}
-        return 0;
+        int res = 0;
+        for (int i = 0; i < arr.length - 2; i++) {
+            int j = i + 1;
+            int k = arr.length - 1;
+            while (i < k) {
+                int tmp = arr[i] + arr[j] + arr[k];
+                if (tmp == 0) {
+                    res++;
+                    i++;
+                    j--;
+                } else if (tmp < 0) {
+                    i++;
+                } else {
+                    j--;
+                }
+            }
+        }
+        return res;
     }
 
     public static void main(String[] args) {

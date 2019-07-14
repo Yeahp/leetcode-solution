@@ -18,7 +18,7 @@ public class MaxDiffSeat {
         for (int i = 0; i < tt; i++) {
             if (seat[i] == 1) order.add(i);
         }
-        int minus = order.get(0) > tt -order.get(0) - 1? order.get(0) : tt -order.get(0) - 1;
+        int minus = order.get(0) > tt -order.get(0) - 1 ? order.get(0) : tt -order.get(0) - 1;
         for (int j = 1; j < order.size(); j++) {
             int tmp = order.get(j) - order.get(j - 1) - 2;
             if (tmp > minus) minus = tmp;

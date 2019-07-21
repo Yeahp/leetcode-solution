@@ -1,8 +1,8 @@
 package rank.algorithm;
 
-public class FastRank<E> {
+public class FastRank<T extends Comparable<T>> {
 
-    public E[] fastRankImp(E[] arr) {
+    public T[] fastRankImp(T[] arr) {
         return null;
     }
 }

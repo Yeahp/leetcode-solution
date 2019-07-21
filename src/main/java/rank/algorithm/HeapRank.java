@@ -1,4 +1,4 @@
 package rank.algorithm;
 
-public class HeapRank<E extends Comparable<E>> {
+public class HeapRank<T extends Comparable<T>> {
 }

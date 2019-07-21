@@ -36,18 +36,21 @@ public class Solution {
 
     public static void main(String[] args) {
 
-        Solution solution = new Solution();
-
-        int[] s = new int[]{1,2,1,2,4,3};
-        TreeNode<Integer> node1 = new TreeNode<Integer>(1);
-        TreeNode<Integer> node2 = new TreeNode<Integer>(2);
-        TreeNode<Integer> node3 = new TreeNode<Integer>(3);
-        node1.right = node2;
-        node2.left = node3;
-        //System.out.println(solution.inorderTraversal(node1));
-
-        int b = 7;
-        System.out.println(Integer.toBinaryString(b));
+//        Solution solution = new Solution();
+//
+//        int[] s = new int[]{1,2,1,2,4,3};
+//        TreeNode<Integer> node1 = new TreeNode<Integer>(1);
+//        TreeNode<Integer> node2 = new TreeNode<Integer>(2);
+//        TreeNode<Integer> node3 = new TreeNode<Integer>(3);
+//        node1.right = node2;
+//        node2.left = node3;
+//        System.out.println(solution.inorderTraversal(node1));
+//
+//        int b = 7;
+//        System.out.println(Integer.toBinaryString(b));
+        String str = "erpeng";
+        StringBuilder sb = new StringBuilder(str);
+        System.out.println(sb.reverse().toString());
     }
 
 }

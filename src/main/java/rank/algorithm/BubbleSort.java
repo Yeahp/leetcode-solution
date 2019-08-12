@@ -2,9 +2,9 @@ package rank.algorithm;
 
 import java.util.Arrays;
 
-public class BubbleRank<T extends Comparable<T>> {
+public class BubbleSort<T extends Comparable<T>> {
 
-    public T[] bubbleRankImp(T[] arr, boolean reverse) {
+    public T[] bubbleSortImp(T[] arr, boolean reverse) {
         if (reverse) {
             for (int i = 0; i < arr.length; i++) {
                 for (int j = 0; j < arr.length - i - 1; j++) {
@@ -30,8 +30,8 @@ public class BubbleRank<T extends Comparable<T>> {
     }
 
     public static void main(String[] args) {
-        BubbleRank<Integer> br = new BubbleRank<Integer>();
+        BubbleSort<Integer> br = new BubbleSort<Integer>();
         Integer[] arr = new Integer[]{1,4,2,3,5,7};
-        System.out.println(Arrays.toString(br.bubbleRankImp(arr, false)));
+        System.out.println(Arrays.toString(br.bubbleSortImp(arr, false)));
     }
 }

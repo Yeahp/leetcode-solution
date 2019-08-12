@@ -17,9 +17,9 @@ public class QuickSort {
         int tmp = arr[low];
         while (low < high) {
             while (low < high && arr[high] >= tmp) high--;
-            arr[low] = arr[high];
+            if (low < high) arr[low] = arr[high];
             while (low < high && arr[low] <= tmp) low++;
-            arr[high] = arr[low];
+            if (low < high) arr[high] = arr[low];
         }
         arr[low] = tmp;
         return low;

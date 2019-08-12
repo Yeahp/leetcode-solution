@@ -116,7 +116,8 @@ public class ND4JDemo {
 
     public static void main(String[] args) {
         ND4JDemo nd4JDemo = new ND4JDemo();
-        nd4JDemo.indArray = Nd4j.create(new float[]{1.0f, 2.0f, 3.0f, 4.0f});
-        System.out.println(String.format("%d-%d", nd4JDemo.indArray.shape()[0], nd4JDemo.indArray.shape()[1]));
+        INDArray data = Nd4j.create(new float[]{5,2,3,4},new int[]{2,2});
+        //System.out.println(String.format("%d-%d", data.shape()[0], data.shape()[1]));
+        System.out.println(data.getFloat(3));
     }
 }

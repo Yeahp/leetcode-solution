@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.io.Console;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class test {
+
     public static void main(String[] args) throws IOException {
         //String s = "wearetheworld!";
         //System.out.println(s.codePointCount(0, s.length()));
@@ -70,22 +72,25 @@ public class test {
         nameId.put("we",45);
         System.out.print(names);
         */
-        int[] arr = new int[]{3,2,4,1};
-        for(int i = 0; i < arr.length - 1; i++){
-            for(int j = i+1; j < arr.length; j++){
-                if(arr[i] > arr[j]){
-                    int tmp = arr[j];
-                    arr[j] = arr[i];
-                    arr[i] = tmp;
-                }
-            }
-        }
-        for(int i=0; i< 4; i++){
-            System.out.println(arr[i]);
-        }
-        String o = "we,we";
-        String[] y = o.split(",");
 
+//        int[] arr = new int[]{3,2,4,1};
+//        for(int i = 0; i < arr.length - 1; i++){
+//            for(int j = i+1; j < arr.length; j++){
+//                if(arr[i] > arr[j]){
+//                    int tmp = arr[j];
+//                    arr[j] = arr[i];
+//                    arr[i] = tmp;
+//                }
+//            }
+//        }
+//        for(int i=0; i< 4; i++){
+//            System.out.println(arr[i]);
+//        }
+//        String o = "we,we";
+//        String[] y = o.split(",");
+        //Pattern PATTERN = Pattern.compile();
+        System.out.println("about3h".matches("about\\d+\\.*+\\d*h"));
+        //Matcher m = PATTERN.matches();
 
     }
 }

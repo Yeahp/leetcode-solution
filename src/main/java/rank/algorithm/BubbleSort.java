@@ -32,6 +32,6 @@ public class BubbleSort<T extends Comparable<T>> {
     public static void main(String[] args) {
         BubbleSort<Integer> br = new BubbleSort<Integer>();
         Integer[] arr = new Integer[]{1,4,2,3,5,7};
-        System.out.println(Arrays.toString(br.bubbleSortImp(arr, false)));
+        //System.out.println(Arrays.toString(br.bubbleSortImp(arr, false)));
     }
 }

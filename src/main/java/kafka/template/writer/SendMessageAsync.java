@@ -35,6 +35,7 @@ public class SendMessageAsync {
     }
     private class DemoProducerCallback implements Callback {
 
+        @Override
         public void onCompletion(RecordMetadata recordMetadata, Exception e) {
             // TODO Auto-generated method stub
             if (e != null) {

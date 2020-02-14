@@ -66,7 +66,7 @@ public class LinkStack<E> {
             stack.push(i);
         }
         for (int i = 0; i < 5; i++) {
-            System.out.print(stack.pop().e+" ");
+            System.out.print(stack.pop().e + " ");
         }
     }
 

@@ -1,5 +1,9 @@
 import data.structure.ListNode;
 import data.structure.TreeNode;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import org.python.antlr.op.Is;
 import rank.algorithm.HeapSort;
 
 import java.util.*;
@@ -383,7 +387,158 @@ public class Demo {
     // 一个二维数组，从左至右递增，从上往下递增
     // 判断给定数字是否在数组中
     public static boolean multiArrayContainsElement(int[][] arrs, int ele) {
-        
+        if (arrs == null || arrs.length == 0) return false;
+        int row = arrs.length;
+        int col = arrs[0].length;
+        int irow = 0;
+        int jcol = col - 1;
+        while (irow >= 0 && jcol >= 0 && irow < row && jcol < col) {
+            if (arrs[irow][jcol] == ele) {
+                return true;
+            } else if (arrs[irow][jcol] < ele) {
+                irow++;
+            } else if (arrs[irow][jcol] > ele) {
+                jcol--;
+            }
+        }
+        return false;
+    }
+
+
+    // 根据逆波兰表示法，求表达式的值
+    // 有效的运算符包括 +, -, *, / 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。
+    //
+    // 说明：
+    // 整数除法只保留整数部分。
+    // 给定逆波兰表达式总是有效的。换句话说，表达式总会得出有效数值且不存在除数为 0 的情况。
+
+    // 示例 1：
+    // 输入: ["2", "1", "+", "3", "*"]
+    // 输出: 9
+    // 解释: ((2 + 1) * 3) = 9
+
+    // 示例 2：
+    // 输入: ["4", "13", "5", "/", "+"]
+    // 输出: 6
+    // 解释: (4 + (13 / 5)) = 6
+
+    // 示例 3：
+    // 输入: ["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"]
+    // 输出: 22
+    // 解释:
+    // ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
+    // = ((10 * (6 / (12 * -11))) + 17) + 5
+    // = ((10 * (6 / -132)) + 17) + 5
+    // = ((10 * 0) + 17) + 5
+    // = (0 + 17) + 5
+    // = 17 + 5
+    // = 22
+    public static int calRPN(String[] ss) {
+        Stack<Integer> s = new Stack<>();
+        Set<String> ops = new HashSet(){{
+            add("+");
+            add("-");
+            add("*");
+            add("/");
+        }};
+        //"2", "1", "+", "3", "*"
+        for (int i = 0; i < ss.length; i++) {
+            if (!ops.contains(ss[i])) {
+                s.push(Integer.parseInt(ss[i]));
+            } else {
+                int b = s.pop();
+                int a = s.pop();
+                int c = cal(ss[i], a, b);
+                s.push(c);
+            }
+        }
+        return s.pop();
+    }
+    private static Integer cal(String op, int a, int b) {
+        Integer res = null;
+        switch (op) {
+            case "+":
+                res = a + b;
+                break;
+            case "-":
+                res = a - b;
+                break;
+            case "*":
+                res = a * b;
+                break;
+            case "/":
+                res = a / b;
+                break;
+        }
+        return res;
+    }
+
+
+    // 给定平面上 n 对不同的点，“回旋镖” 是由点表示的元组 (i, j, k)
+    // 其中 i 和 j 之间的距离和 i 和 k 之间的距离相等（需要考虑元组的顺序）
+    // 找到所有回旋镖的数量
+    // 假设 n 最大为 500，所有点的坐标在闭区间 [-10000, 10000] 中
+
+    // 示例:
+    // 输入:
+    // [[0,0],[1,0],[2,0]]
+    // 输出:
+    // 2
+    // 解释:
+    // 两个回旋镖为 [[1,0],[0,0],[2,0]] 和 [[1,0],[2,0],[0,0]]
+    public static int numBoomerRangs() {
+        return 1;
+    }
+
+
+    // 给定一个保存员工信息的数据结构，它包含了员工唯一的id，重要度 和 直系下属的 id
+    // 比如，员工 1 是员工 2 的领导，员工 2 是员工 3 的领导
+    // 他们相应的重要度为 15, 10, 5
+    // 那么员工 1 的数据结构是[1, 15, [2]]，员工 2 的数据结构是[2, 10, [3]]，员工3的数据结构是[3, 5, []]
+    // 注意虽然员工 3 也是员工 1 的一个下属，但是由于并不是直系下属，因此没有体现在员工 1 的数据结构中
+    // 现在输入一个公司的所有员工信息，以及单个员工 id，返回这个员工和他所有下属的重要度之和
+    public static int employeeImpotance(Triple<Integer, Integer, List<Integer>>[] inds, int id) {
+        Map<Integer, Pair<Integer, List<Integer>>> _inds = new HashMap<>();
+        for (int i = 0; i < inds.length; i++) {
+            _inds.put(inds[i].getLeft(), new ImmutablePair<>(inds[i].getMiddle(), inds[i].getRight()));
+        }
+        Pair<Integer, List<Integer>> l = _inds.get(id);
+        int imp = l.getKey();
+        if (l.getValue().size() == 0) {
+            return imp;
+        } else {
+            for (Integer item : l.getRight()) {
+                imp = imp + _inds.get(item).getLeft();
+            }
+        }
+        return imp;
+    }
+
+
+    // 给定一个含有 n 个正整数的数组和一个正整数s ，找出该数组中满足其和 ≥ s的长度最小的连续子数组
+    // 如不存在符合条件的连续子数组，返回 0
+    // 示例:
+    // 输入: s = 7, nums = [2,3,1,2,4,3]
+    // 输出: 2
+    // 解释: 子数组 [4,3] 是该条件下的长度最小的连续子数组
+    public static int minSubArray(int[] arr, int s) {
+        if (arr == null || arr.length == 0) return 0;
+        int count = 0, left = 0, sum = 0;
+        for (int right = 0; right < arr.length; right++) {
+            sum = sum + arr[right];
+            if (sum >= s) {
+                count = right - left + 1;
+                for (int j = left; j < right; j++) {
+                    if (sum - arr[j] >= s && sum - arr[j] - arr[j + 1] < s) {
+                        count = right - j;
+                        left = j + 1;
+                        break;
+                    }
+                }
+                if (count == 1) return count;
+            }
+        }
+        return count;
     }
 
 
@@ -401,7 +556,22 @@ public class Demo {
 //            System.out.println(res.value);
 //            res = res.next;
 //        }
-        System.out.println(Arrays.toString(Demo.moveZeroToEnd(new int[]{1,0,3,0,5,6})));
+//        System.out.println(Arrays.toString(Demo.moveZeroToEnd(new int[]{1,0,3,0,5,6})));
+
+        TreeNode<Integer> root = new TreeNode<Integer>(1);
+        TreeNode<Integer> node1 = new TreeNode<Integer>(2);
+        TreeNode<Integer> node2 = new TreeNode<Integer>(3);
+        TreeNode<Integer> node3 = new TreeNode<Integer>(4);
+        TreeNode<Integer> node4 = new TreeNode<Integer>(5);
+        TreeNode<Integer> node5 = new TreeNode<Integer>(6);
+        root.left = node1;
+        node1.right = node2;
+        node2.right = node3;
+        node3.right = node4;
+        node3.left = node5;
+        //Demo.reversedLevelOrderTraversal(root);
+        //System.out.println(Demo.calRPN(new String[]{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}));
+        System.out.println(Demo.minSubArray(new int[]{1,2,3,4,3}, 7));
     }
 
 }

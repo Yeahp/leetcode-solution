@@ -2,7 +2,7 @@ package SwordCode;
 
 import java.util.Stack;
 
-public class EnhancedStack {
+public class EnrichStackWithMinFunction {
 
     // 定义栈结构, 满足调用 min、pop、push 函数的时间复杂度均为 o(1)
     private Stack<Integer> stack1 = new Stack<>();  // 用于存储一次进入的数据

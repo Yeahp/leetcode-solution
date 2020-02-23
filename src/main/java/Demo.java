@@ -13,7 +13,7 @@ public class Demo {
     // 关键思路：
     // 当遇到重复的字符时，此时索引为k，重复的字符索引为k'，
     // 需要将前面已经扫过的字符（索引为 0~k'）全部删除，从 k' 开始计算
-    public static int longestSubStr(String s) {
+    public int longestSubStr(String s) {
         int l = 0;
         int r = -1;
         int res = 0;
@@ -37,7 +37,7 @@ public class Demo {
     // 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素
     // 核心思路：
     // 2次遍历 - 第一次遍历记录值和下标的映射，第二次遍历寻找差值
-    public static String twoNumsum(int[] nums, int target) {
+    public String twoNumsum(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             map.put(nums[i], i);
@@ -62,7 +62,7 @@ public class Demo {
 
     // 进阶：两数相加，位数按照顺序存储
     // 核心思想： 让两个链表分别进入栈，然后分别出栈相加，新建节点，逐个插入
-    public static ListNode<Integer> twoNumAdd(ListNode<Integer> l1, ListNode<Integer> l2) {
+    public ListNode<Integer> twoNumAdd(ListNode<Integer> l1, ListNode<Integer> l2) {
         Stack<Integer> s1 = new Stack<>();
         Stack<Integer> s2 = new Stack<>();
         while (l1 != null) {
@@ -113,7 +113,7 @@ public class Demo {
 
     // 查找链表倒数第k个元素
     // 核心思想：双指针，让前一个指针先走k步
-    public static ListNode<Integer> lastKElement(ListNode<Integer> root, int k) {
+    public ListNode<Integer> lastKElement(ListNode<Integer> root, int k) {
         ListNode<Integer> pre = root;
         ListNode<Integer> next = root;
         for (int i = 1; i < k; i++) {
@@ -129,7 +129,7 @@ public class Demo {
 
 
     // 给定一个链表，删除链表的倒数第 k 个节点，并且返回链表的头结点
-    public static ListNode<Integer> deleteLastKNode(ListNode<Integer> root, int k) {
+    public ListNode<Integer> deleteLastKNode(ListNode<Integer> root, int k) {
         if (root == null) return null;
         ListNode<Integer> _next = root;
         for (int i = 1; i < k; i++) {
@@ -157,7 +157,7 @@ public class Demo {
 
     // 给定一个包含 n 个整数的数组，判断是否存在三个元素 a，b，c
     // 使得 a + b + c = 0 找出所有满足条件且不重复的三元组
-    public static void threeNumSumZero(int[] arr) {
+    public void threeNumSumZero(int[] arr) {
         HeapSort hs = new HeapSort();
         int[] _arr = hs.heapSort(arr);
         if (_arr[0] >0 || _arr.length < 3 || _arr[_arr.length - 1] < 0) return;
@@ -183,7 +183,7 @@ public class Demo {
     // 有效字符串需满足：
     // 左括号必须用相同类型的右括号闭合
     // 左括号必须以正确的顺序闭合
-    public static boolean brackets(String s) {
+    public boolean brackets(String s) {
         Map<String, String> map = new HashMap<String, String>(){{
             put(")", "(");
             put("}", "{");
@@ -202,12 +202,12 @@ public class Demo {
 
     // 合并 k 个排序链表，返回合并后的排序链表
     // 核心思想：采用归并排序
-    public static ListNode<Integer> mergeKLinkedList(ListNode<Integer>[] lls) {
+    public ListNode<Integer> mergeKLinkedList(ListNode<Integer>[] lls) {
         if (lls == null) return null;
         return _mergeKLinkedList(lls, 0, lls.length - 1);
     }
 
-    private static ListNode<Integer> _mergeKLinkedList(ListNode<Integer>[] lls, int start, int end) {
+    private ListNode<Integer> _mergeKLinkedList(ListNode<Integer>[] lls, int start, int end) {
         if (start == end) {
             return lls[start];
         } else if (start - end == 1) {
@@ -218,7 +218,7 @@ public class Demo {
         }
     }
 
-    private static ListNode<Integer> megerTwoLinkedList(ListNode<Integer> ll1, ListNode<Integer> ll2) {
+    private ListNode<Integer> megerTwoLinkedList(ListNode<Integer> ll1, ListNode<Integer> ll2) {
         // 不额外产生空间开销
         if (ll1 == null) return ll2;
         if (ll2 == null) return ll1;
@@ -250,7 +250,7 @@ public class Demo {
 
     // 给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加 1
     // 最高位数字存放在数组的首位， 数组中每个元素只存储一个数字
-    public static int[] addOne(int[] arr) {
+    public int[] addOne(int[] arr) {
         if (arr == null) return null;
         for (int i = arr.length - 1; i >= 0; i--) {
             if (arr[i] == 9) {
@@ -268,7 +268,7 @@ public class Demo {
 
     // 给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前
     // 保留两个分区中每个节点的初始相对位置
-    public static ListNode<Integer> partitionLinkedList(ListNode<Integer> head, int x) {
+    public ListNode<Integer> partitionLinkedList(ListNode<Integer> head, int x) {
         ListNode<Integer> dummy1 = new ListNode<>(-1, null);
         ListNode<Integer> dummy2 = new ListNode<>(-1, null);
         ListNode<Integer> pre1 = dummy1;
@@ -293,7 +293,7 @@ public class Demo {
 
     // 给定一个二叉树，返回其按层次遍历的节点值
     // 即逐层地，从左到右访问所有节点
-    public static void levelOrderTraversal(TreeNode<Integer> root) {
+    public void levelOrderTraversal(TreeNode<Integer> root) {
         if (root == null) return;
         Queue<TreeNode<Integer>> q = new LinkedList<>();
         q.add(root);
@@ -312,7 +312,7 @@ public class Demo {
 
     // 给定一个二叉树，返回其节点值自底向上的层次遍历
     // 核心思想：队列 + 栈
-    public static void reversedLevelOrderTraversal(TreeNode<Integer> root) {
+    public void reversedLevelOrderTraversal(TreeNode<Integer> root) {
         if (root == null) return;
         Stack<List<Integer>> stack = new Stack<>();
         Queue<TreeNode<Integer>> q = new LinkedList<>();
@@ -336,7 +336,7 @@ public class Demo {
 
 
     // 给定一个二叉树，打印第 k 层所有节点的值
-    public static void levelKValue(TreeNode<Integer> root, int k) {
+    public void levelKValue(TreeNode<Integer> root, int k) {
         if (root == null || k == 0) return;
         if (k == 1) {
             System.out.println(root.value);
@@ -349,11 +349,11 @@ public class Demo {
 
     // 给定一个非负整数 row
     // 生成杨辉三角的前 row 行
-    public static void yangHuiGen(int row) {
+    public void yangHuiGen(int row) {
         int[] pre = {1};
         _yangHuiGen(pre, 0, row);
     }
-    private static void _yangHuiGen(int[] pre, int currentRow, int row) {
+    private void _yangHuiGen(int[] pre, int currentRow, int row) {
         if (currentRow < row) {
             int[] tmp = new int[currentRow + 1];
             tmp[0] = 1;
@@ -368,7 +368,7 @@ public class Demo {
 
 
     // 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序
-    public static int[] moveZeroToEnd(int[] arr) {
+    public int[] moveZeroToEnd(int[] arr) {
         int zero = -1;
         for (int i = 1; i < arr.length; i++) {
             if (arr[i] == 0 && zero < 0) {
@@ -385,7 +385,7 @@ public class Demo {
 
     // 一个二维数组，从左至右递增，从上往下递增
     // 判断给定数字是否在数组中
-    public static boolean multiArrayContainsElement(int[][] arrs, int ele) {
+    public boolean multiArrayContainsElement(int[][] arrs, int ele) {
         if (arrs == null || arrs.length == 0) return false;
         int row = arrs.length;
         int col = arrs[0].length;
@@ -432,7 +432,7 @@ public class Demo {
     // = (0 + 17) + 5
     // = 17 + 5
     // = 22
-    public static int calRPN(String[] ss) {
+    public int calRPN(String[] ss) {
         Stack<Integer> s = new Stack<>();
         Set<String> ops = new HashSet(){{
             add("+");
@@ -453,7 +453,7 @@ public class Demo {
         }
         return s.pop();
     }
-    private static Integer cal(String op, int a, int b) {
+    private Integer cal(String op, int a, int b) {
         Integer res = null;
         switch (op) {
             case "+":
@@ -485,7 +485,7 @@ public class Demo {
     // 2
     // 解释:
     // 两个回旋镖为 [[1,0],[0,0],[2,0]] 和 [[1,0],[2,0],[0,0]]
-    public static int numBoomerRangs() {
+    public int numBoomerRangs() {
         return 1;
     }
 
@@ -496,7 +496,7 @@ public class Demo {
     // 那么员工 1 的数据结构是[1, 15, [2]]，员工 2 的数据结构是[2, 10, [3]]，员工3的数据结构是[3, 5, []]
     // 注意虽然员工 3 也是员工 1 的一个下属，但是由于并不是直系下属，因此没有体现在员工 1 的数据结构中
     // 现在输入一个公司的所有员工信息，以及单个员工 id，返回这个员工和他所有下属的重要度之和
-    public static int employeeImpotance(Triple<Integer, Integer, List<Integer>>[] inds, int id) {
+    public int employeeImpotance(Triple<Integer, Integer, List<Integer>>[] inds, int id) {
         Map<Integer, Pair<Integer, List<Integer>>> _inds = new HashMap<>();
         for (int i = 0; i < inds.length; i++) {
             _inds.put(inds[i].getLeft(), new ImmutablePair<>(inds[i].getMiddle(), inds[i].getRight()));
@@ -520,7 +520,7 @@ public class Demo {
     // 输入: s = 7, nums = [2,3,1,2,4,3]
     // 输出: 2
     // 解释: 子数组 [4,3] 是该条件下的长度最小的连续子数组
-    public static int minSubArray(int[] arr, int s) {
+    public int minSubArray(int[] arr, int s) {
         if (arr == null || arr.length == 0) return 0;
         int count = 0, left = 0, sum = 0;
         for (int right = 0; right < arr.length; right++) {
@@ -541,7 +541,8 @@ public class Demo {
     }
 
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
+        Demo demo = new Demo();
 
 //        ListNode<Integer> root = new ListNode<Integer>(5);
 //        ListNode<Integer> node1 = new ListNode<Integer>(2);
@@ -570,7 +571,7 @@ public class Demo {
         node3.left = node5;
         //Demo.reversedLevelOrderTraversal(root);
         //System.out.println(Demo.calRPN(new String[]{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}));
-        System.out.println(Demo.minSubArray(new int[]{1,2,3,4,3}, 7));
+        System.out.println(demo.minSubArray(new int[]{1,2,3,4,3}, 7));
     }
 
 }

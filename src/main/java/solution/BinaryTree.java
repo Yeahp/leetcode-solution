@@ -1,7 +1,6 @@
 package solution;
 
 import data.structure.TreeNode;
-
 import java.util.*;
 
 public class BinaryTree {
@@ -153,7 +152,7 @@ public class BinaryTree {
     // 完全二叉树：除了非叶子节点外，每个节点都有左右两个孩子，叶子节点只存在于最末层左端
     boolean isComplete(TreeNode<Integer> root){
         if (root == null) return false;
-        Queue<TreeNode<Integer>> queue = new LinkedList<>();
+        Queue<TreeNode<Integer>> queue = new java.util.LinkedList<>();
         queue.add(root);
         boolean result = true;
         boolean hasNoChild = false;

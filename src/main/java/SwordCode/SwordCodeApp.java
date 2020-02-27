@@ -683,6 +683,7 @@ public class SwordCodeApp {
     // 从扑克牌中随机抽 5 张派，判断是不是顺子，J/Q/K 对应 11/12/13，大/小王随意配
     public boolean shunzi(String[] arr) {
         int min = -1;
+        int max = - 1;
         int wang = 0;
         int sum = 0;
         for (int i = 0; i < 5; i++) {
@@ -691,16 +692,22 @@ public class SwordCodeApp {
                     sum += 11;
                     if (min == -1) min = 11;
                     else if (min > 11) min = 11;
+                    if (max == -1) max = 11;
+                    else if (max < 11) max = 11;
                     break;
                 case "Q":
                     sum += 12;
                     if (min == -1) min = 12;
                     else if (min > 12) min = 12;
+                    if (max == -1) max = 12;
+                    else if (max < 12) max = 12;
                     break;
                 case "K":
                     sum += 13;
                     if (min == -1) min = 13;
                     else if (min > 13) min = 13;
+                    if (max == -1) max = 13;
+                    else if (max < 13) max = 13;
                     break;
                 case "Joker":
                     wang++;
@@ -710,12 +717,14 @@ public class SwordCodeApp {
                     sum += tmp;
                     if (min == -1) min = tmp;
                     else if (min > tmp) min = tmp;
+                    if (max == -1) max = tmp;
+                    else if (max < tmp) max = tmp;
                     break;
             }
         }
         return (wang == 0 && sum == 5 * min + 10)
-                || (wang == 1 && sum == 4 * min + 6)
-                || (wang == 2 && sum == 3 * min + 3);
+                || (wang == 1 && (sum == 4 * min + 6 || max - min == 4))
+                || (wang == 2 && (sum == 3 * min + 3 || max - min == 4 || max - min == 3));
     }
 
 

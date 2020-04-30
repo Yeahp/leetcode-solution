@@ -18,8 +18,8 @@ public class LRUCacheV2 {
         cache = new HashMap<>(capacity + 2);
     }
 
-    /**     * 如果节点不存在，返回 -1.如果存在，将节点移动到头结点，并返回节点的数据
-     *
+    /*
+     * 如果节点不存在，返回 -1.如果存在，将节点移动到头结点，并返回节点的数据
      * @param key
      * @return
      **/
@@ -33,9 +33,8 @@ public class LRUCacheV2 {
         return node.value;
     }
 
-    /**
+    /*
      * 将节点加入到头结点，如果容量已满，将会删除尾结点
-     *
      * @param key
      * @param value
      **/

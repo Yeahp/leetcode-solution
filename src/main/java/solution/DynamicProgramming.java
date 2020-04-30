@@ -37,7 +37,10 @@ public class DynamicProgramming {
     // [6,5,7],
     // [4,1,8,3]
     // 输出 2 + 3 + 5 + 1 = 11
+    public int minPathSum(int[][] arr) {
 
+        return 0;
+    }
 
 
     // Q4: 给定一个无序的整数数组，找到其中最长上升子序列的长度
@@ -64,17 +67,71 @@ public class DynamicProgramming {
 
     // 给定一个二叉树，根节点为第1层，深度为 1。在其第 d 层追加一行值为 v 的节点
     //添加规则：给定一个深度值 d （正整数），针对深度为 d-1 层的每一非空节点 N，为 N 创建两个值为 v 的左子树和右子树。
-    //
     //将 N 原先的左子树，连接为新节点 v 的左子树；
-    //
     //将 N 原先的右子树，连接为新节点 v 的右子树。
-    //
     //如果 d 的值为 1，深度 d - 1 不存在，则创建一个新的根节点 v，原先的整棵树将作为 v 的左子树。
 
 
 
     // 给定一个非空字符串 s 和一个包含非空单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词
     // 说明：1.拆分时可以重复使用字典中的单词；2.你可以假设字典中没有重复的单词。
+
+
+    // 蓄水池
+    // 核心思想：记录当前最大容量的较小木桩及其索引，较大木桩及其索引
+    // 根据当前木桩长度与索引，计算与最大木桩和最小木桩的之间的容量，更新状态
+    public int maxVolumn(int[] arr) {
+        int left = 0;
+        int maxIdx = 0;
+        int max = arr[0];
+        int res = 0;
+        for (int right = 1; right < arr.length; right++) {
+            if (arr[right] <= arr[left]) {
+                res = Math.max(arr[right] * (right - left), res);
+            } else {
+                int res1 = Math.min(arr[right], max) * (right - maxIdx);
+                int res2 = arr[left] * (right - left);
+                res = Math.max(res1, res2);
+                if (arr[right] > max) {
+                    maxIdx = right;
+                    max = arr[maxIdx];
+                }
+            }
+        }
+        return res;
+    }
+
+
+    public boolean convex(int[][] arr) {
+        // 假设：arr 先按照 x 轴在按照 y 周递增排序
+        int upperBound = arr[0][1];
+        int lowBound = arr[0][1];
+        int upperRise = 0;
+        int upperDown = 0;
+        int upperParell = 0;
+        int lowDown = 0;
+        int lowParell = 0;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i][1] < lowBound) {
+                if (lowParell > 0) return false;
+                lowBound = arr[i][1];
+                lowDown++;
+            } else if (arr[i][1] == lowBound) {
+                lowParell++;
+            } else if (arr[i][1] > lowBound && arr[i][i] < upperBound) {
+                upperBound = arr[i][1];
+                upperDown++;
+            } else if (arr[i][i] == upperBound) {
+                if (upperDown > 0) return false;
+                upperParell++;
+            } else {
+                if (upperParell > 0 || upperDown > 0) return false;
+                upperBound = arr[i][1];
+                upperRise++;
+            }
+        }
+        return true;
+    }
 
     public static void main(String[] args) {
         DynamicProgramming dp = new DynamicProgramming();

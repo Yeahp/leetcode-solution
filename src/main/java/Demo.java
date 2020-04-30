@@ -541,7 +541,151 @@ public class Demo {
     }
 
 
-    public void main(String[] args) {
+    public boolean aliceWin(int n) {
+        if (n == 1) return false;
+        if (n == 2) return true;
+        int[] res = new int[n + 1];
+        res[2] = 1;
+        for (int i = 3; i <= n; i++) {
+            for (int j = 1; j < i; j++) {
+                if (i%j == 0 && res[i - j] == 0) {
+                    res[i] = 1;
+                    break;
+                }
+            }
+        }
+        return res[n] == 1;
+    }
+
+
+    public int numOfSquare(int n) {
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+        int[] res = new int[n + 1];
+        res[1] = 1;
+        res[2] = 2;
+        for (int i = 3; i <= n; i++) {
+            int square = (int) Math.sqrt(i);
+            if (square * square == i) {
+                res[i] = 1;
+            } else {
+                int min = i;
+                for (int j = 1; j <= i/2; j++) {
+                    int tmp = res[j] + res[i - j];
+                    if (min > tmp) min = tmp;
+                }
+                res[i] = min;
+            }
+        }
+        return res[n];
+    }
+
+
+    public int treePath(TreeNode<Integer> root, int target) {
+        if (root == null) return 0;
+        int res = 0;
+        treePathHelper(root, target, target, res);
+        return res;
+    }
+    private void treePathHelper(TreeNode<Integer> root, int target, int _target, int res) {
+        if (target == 0) {
+            res++;
+            if (root.left != null) treePathHelper(root.left, _target, _target, res);
+            if (root.right != null) treePathHelper(root.right, _target, _target, res);
+        } else {
+            if (root.left != null) {
+                treePathHelper(root.left, target - root.value, _target, res);
+                treePathHelper(root.left, _target, _target, res);
+            }
+            if (root.right != null) {
+                treePathHelper(root.right, target - root.value, _target, res);
+                treePathHelper(root.right, _target, _target, res);
+            }
+        }
+    }
+
+
+    public int largestRectangle(int[][] arr) {
+        int rows = arr.length;
+        int cols = arr[0].length;
+        int[][] res = new int[rows][cols];
+        int[][][] help = new int[rows][cols][2];
+        int max = 0;
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                 if (row == 0 && col == 0) {
+                     if (arr[row][col] == 1) {
+                         res[row][col] = 1;
+                         help[row][col][0] = 1;
+                         help[row][col][1] = 1;
+                     }
+                 } else if (row == 0) {
+                     if (arr[row][col] == 1) {
+                         res[row][col] = res[row][col - 1] + 1;
+                         help[row][col][0] = help[row][col][0] + 1;
+                         help[row][col][1] = help[row][col][1] + 1;
+                     }
+                 } else if (col == 0) {
+                     if (arr[row][col] == 1) {
+                         res[row][col] = res[row - 1][col] + 1;
+                         help[row][col][0] = help[row - 1][col][0] + 1;
+                         help[row][col][1] = help[row - 1][col][1] + 1;
+                     }
+                 } else {
+                     int tmp_res = 0;
+                     int tmp_row = 0;
+                     int tmp_col = 0;
+                     if (arr[row][col] == 1) {
+                         if (res[row - 1][col] + 1 > res[row][col - 1] + 1) {
+                             tmp_res = res[row - 1][col] + 1;
+                             tmp_row = help[row - 1][col][0] + 1;
+                             tmp_col = help[row - 1][col][1] + 1;
+                         } else {
+                             tmp_res = res[row][col - 1] + 1;
+                             tmp_row = help[row][col - 1][0] + 1;
+                             tmp_col = help[row][col - 1][1] + 1;
+                         }
+                     }
+                     res[row][col] = tmp_res;
+                     help[row][col][0] = tmp_row;
+                     help[row][col][1] = tmp_col;
+                 }
+                 if (max < res[row][col]) max = res[row][col];
+            }
+        }
+        return max;
+    }
+
+
+    public int _largestRectangle(int[][] arr) {
+        int rows = arr.length;
+        int cols = arr[0].length;
+        int[][] res = new int[rows][cols];
+        int max = 0;
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                if (row == 0 && col == 0) {
+                    if (arr[row][col] == 1) res[row][col] = 1;
+                } else if (row == 0) {
+                    if (arr[row][col] == 1) res[row][col] = res[row][col - 1] + 1;
+                } else if (col == 0) {
+                    if (arr[row][col] == 1) res[row][col] = res[row - 1][col] + 1;
+                } else {
+                    int tmp_res = 0;
+                    if (arr[row][col] == 1) {
+                        if (res[row - 1][col] + 1 > res[row][col - 1] + 1) tmp_res = res[row - 1][col] + 1;
+                        else tmp_res = res[row][col - 1] + 1;
+                    }
+                    res[row][col] = tmp_res;
+                }
+                if (max < res[row][col]) max = res[row][col];
+            }
+        }
+        return max;
+    }
+
+
+    public static void main(String[] args) {
         Demo demo = new Demo();
 
 //        ListNode<Integer> root = new ListNode<Integer>(5);
@@ -571,7 +715,7 @@ public class Demo {
         node3.left = node5;
         //Demo.reversedLevelOrderTraversal(root);
         //System.out.println(Demo.calRPN(new String[]{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"}));
-        System.out.println(demo.minSubArray(new int[]{1,2,3,4,3}, 7));
+        System.out.println(demo.numOfSquare(12));
     }
 
 }

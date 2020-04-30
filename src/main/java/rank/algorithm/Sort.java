@@ -193,7 +193,7 @@ public class Sort {
             if (arr[i] < min) min = arr[i];
             if (arr[i] > max) max = arr[i];
         }
-        int numOfBucket = (max - min + 1) / buckets + ((max - min + 1)%buckets == 0 ? 0 : 1);  // 每个桶里的元素数量
+        int numOfBucket = arr.length;  // 为避免元素堆积到同一个桶里面，去数组长度作为每个桶里的元素数量
         int[] bucketNum = new int[buckets];  // 用于指示桶里是否有数据
         int[][] placeHolderArr = new int[buckets][numOfBucket];  // 存放数据
         for (int i = 0; i < arr.length; i++) {
@@ -259,10 +259,28 @@ public class Sort {
         return ele%10;
     }
 
+    public int maximalSquare(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int tmpMax = Integer.MIN_VALUE;
+        int[][] stage = new int[m][n];
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if (i == 0 || j == 0){
+                    stage[i][j] = matrix[i][j] - 48;
+                } else if(matrix[i][j] == 1){
+                    stage[i][j] = Math.min(Math.min(stage[i-1][j],stage[i][j-1]),stage[i-1][j-1]) + 1;
+                }
+                tmpMax = tmpMax < stage[i][j] ? stage[i][j] : tmpMax;
+            }
+        }
+        return tmpMax*tmpMax;
+    }
+
 
     public static void main(String[] args) {
         Sort sort = new Sort();
-        int[] arr = new int[]{31,12,10,5,6,4,100};
-        System.out.println(Arrays.toString(sort.radixSort(arr)));
+        int[] arr = new int[]{2, 2,1,3,4,5};
+        System.out.println(sort.maximalSquare(new int[][]{{1,0}}));
     }
 }

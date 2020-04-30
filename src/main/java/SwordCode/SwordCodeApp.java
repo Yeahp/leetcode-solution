@@ -347,10 +347,6 @@ public class SwordCodeApp {
         return sum;
     }
 
-
-    // 1～n 整数中，1 出现的次数
-
-
     // 数字以 01234567891011121314··· 存储，求任意第 n 位数字
     // 核心思想：所有位数小于或者等于 k 的数字位数之和为 1 + k*10^k - (10^k - 1)/9
     public int noNDigit(int n) {
@@ -460,10 +456,6 @@ public class SwordCodeApp {
         else if (i == 1) return (int) (5 * Math.pow(2, (n - 1.0) / 3 - 1));
         else return (int) (3 * Math.pow(2, (n - 1.0) / 3));
     }
-
-
-    // 数组中的逆序对: 在数组的两个数字，如果前一个数字大于后面的数字，则这两个数字组成一个逆序对
-    // 输入一个数组，返回这个数组中逆序对的总数
 
 
     // 输入两个链表，找出第一个公共节点
@@ -652,13 +644,6 @@ public class SwordCodeApp {
     }
 
 
-    // 给定一棵二叉搜索树，将其转化为双向链表
-    // 要求：不能创建任何新的节点，只能调整指针的指向
-
-
-    // 设计一个函数，用来序列化和反序列化一棵二叉树
-
-
     // 打印字符串所有的排列组合
     public List<String> stringPermutation(String s) {
         List<String> pmt = new ArrayList<>();
@@ -730,11 +715,77 @@ public class SwordCodeApp {
 
     // 圆圈中最后剩下的数字
     // 0，1，...，n-1 这 n 个数字排成一圈，从数字 0 开始，每次删除第 m 个数字，求最后剩下的数字
+    // 核心思想：找出删除后的元素与删除前的元素关系
+    // old = (new + m) % n
+    public int lastElement(int n, int m) {
+        return n == 1? 1 : (lastElement(n - 1, m) + m) % n;
+    }
+
+
+    // 给定一棵二叉搜索树，将其转化为双向链表
+    // 要求：不能创建任何新的节点，只能调整指针的指向
+
+
+    // 设计一个函数，用来序列化和反序列化一棵二叉树
+
+
+    // 数组中的逆序对: 在数组的两个数字，如果前一个数字大于后面的数字，则这两个数字组成一个逆序对
+    // 输入一个数组，返回这个数组中逆序对的总数
+    // S1: 双层循环，o(n^2)
+    // S2: 采用归并排序实现升序
+    public int pairs = 0;
+    public int[] inversePair(int[] arr) {
+        if (arr == null || arr.length == 1) return arr;
+        int mid = arr.length / 2;
+        int[] left = Arrays.copyOfRange(arr, 0, mid);
+        int[] right = Arrays.copyOfRange(arr, mid, arr.length);
+        return inversePairHelper(inversePair(left), inversePair(right));
+    }
+    private int[] inversePairHelper(int[] left, int[] right) {  //此时 left 和 right 已经是升序
+        int[] res = new int[left.length + right.length];
+        int i = 0, j = 0, k = 0;
+        while (i < left.length && j < right.length) {
+            if (left[i] > right[j]) {
+                res[k++] = right[j++];
+                pairs = pairs + 1;
+            } else {
+                res[k++] = left[i++];
+            }
+        }
+        if (i == left.length) {
+            while (j < right.length) res[k++] = right[j++];
+        }
+        if (j == right.length) {
+            while (i < left.length) res[k++] = left[i++];
+        }
+        return res;
+    }
+
+
+    // 1～n 整数中，1 出现的次数
+    // 核心思想：个位数出现1的次数为 1，十位数出现1次数为 10，百位数出现1的次数为100...
+    public int numOne(int n) {
+        int res = 0;
+        int pow = 1;
+        while (true) {
+            int _pow = (int) Math.pow(10, pow);
+            int tmp = n / _pow;
+            int resd = n % _pow;
+            int _resd = resd % (_pow / 10);
+            res = res + tmp * _pow / 10 + (resd >= _pow / 10 ? _resd + 1 : 0);
+            pow++;
+            if (tmp == 0) break;
+        }
+        return res;
+    }
 
 
     // 不用加减乘除做加法：编写一个函数，求两个正数之和，函数体内不得使用 "+"、"-"、"*"、"/"
     public int twoNumSumWithoutAddOp(int i, int j) {
-        return 0;
+        if (j == 0) return i;
+        int tmp = i^j;
+        int mv = (i&j)<<1;
+        return twoNumSumWithoutAddOp(tmp, mv);
     }
 
 
@@ -754,7 +805,8 @@ public class SwordCodeApp {
 //        node1.next = node2;
 //        node2.next = node3;
 //        System.out.println(root.equals(_root));
-        System.out.println();
+        //int[] s = app.inversePair(new int[]{2,9,8,7});
+        System.out.println(app.twoNumSumWithoutAddOp(2,3));
     }
 
 }
